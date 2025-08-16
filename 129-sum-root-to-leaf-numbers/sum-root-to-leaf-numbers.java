@@ -16,26 +16,25 @@
 class Solution {
     public int sumNumbers(TreeNode root) {
         List<Integer> ll = new ArrayList<>();
+        make(root,0,ll);
+        int sum =0;
 
-        helper(root,0,ll);
-        int sum=0;
         for(int num : ll){
-            sum +=num;
+            sum+=num;
         }
         return sum;
     }
-    public void helper(TreeNode root,int sum, List<Integer> ll){
-        if(root == null){
-            return ;
+    public void make(TreeNode root,int sum,List<Integer> ll){
+        if(root== null){
+            return;
         }
-        sum += root.val;
+        sum +=root.val;
         if(root.left == null && root.right == null){
             ll.add(sum);
+            return;
         }
-
-        helper(root.left, sum*10,ll);
-        helper(root.right,sum*10,ll);
-
-        sum -=root.val;
+        make(root.left,sum*10,ll);
+        make(root.right,sum*10,ll);
+        sum-=root.val;
     }
 }
