@@ -15,16 +15,10 @@
  */
 class Solution {
     public int countNodes(TreeNode root) {
-        List<Integer> ll = new ArrayList<>();
-        make(root,ll);
-        return ll.size();
-    }
-    public void make(TreeNode root,List<Integer> ll){
         if(root == null){
-            return;
+            return 0;
         }
-        ll.add(root.val);
-        make(root.left,ll);
-        make(root.right,ll);
+        return countNodes(root.left)+ countNodes(root.right)+1;
+        
     }
 }
