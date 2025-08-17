@@ -15,26 +15,26 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-        return diameter(root).dia;
+        return dia(root);
     }
-    public DiaPair diameter(TreeNode root){
+    public int dia(TreeNode root){
         if(root == null){
-            return new DiaPair();
+            return 0;
         }
-        DiaPair ldp = diameter(root.left);
-        DiaPair rdp = diameter(root.right);
+        int ld = dia(root.left);
+        int rd = dia(root.right);
 
-        DiaPair sdp = new DiaPair();
-        sdp.ht = Math.max(ldp.ht,rdp.ht)+1;
-        int sd = ldp.ht +rdp.ht+2;
+        int sd = ht(root.left) + ht(root.right)+2;
 
-        sdp.dia = Math.max(sd,Math.max(ldp.dia,rdp.dia));
-
-        return sdp;
+        return Math.max(sd,Math.max(ld,rd));
     }
-    class DiaPair{
-        int dia = 0;
-        int ht=-1;
+    public int ht(TreeNode root){
+        if(root == null){
+            return -1;
+        }
+        int left = ht(root.left);
+        int right = ht(root.right);
+
+        return Math.max(left,right)+1;
     }
-    
 }
