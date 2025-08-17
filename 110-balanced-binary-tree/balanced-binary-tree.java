@@ -15,24 +15,24 @@
  */
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        return Balance(root).isbal;
+        return isbalance(root).isbal;
     }
-    public BalancePair Balance(TreeNode root){
+    public isBal isbalance(TreeNode root){
         if(root == null){
-            return new BalancePair();
+            return new isBal();
         }
-        BalancePair ldp = Balance(root.left);
-        BalancePair rdp = Balance(root.right);
-        BalancePair sdp = new BalancePair();
-        sdp.ht = Math.max(ldp.ht,rdp.ht)+1;
-        boolean sb = Math.abs(ldp.ht-rdp.ht) <=1;
-        sdp.isbal = sb && ldp.isbal && rdp.isbal;
+        isBal left = isbalance(root.left);
+        isBal right = isbalance(root.right);
 
-        return sdp;
+        isBal self = new isBal();
+        self.ht = Math.max(left.ht,right.ht)+1;
+        boolean sb = Math.abs(left.ht - right.ht) <=1;
+        self.isbal = sb && left.isbal && right.isbal;
 
+        return self;
     }
-    class BalancePair{
-        boolean isbal = true;
-        int ht = -1;
+    class isBal{
+        int ht =-1;
+        boolean isbal=true;
     }
 }
