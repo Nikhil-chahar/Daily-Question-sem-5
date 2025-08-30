@@ -15,26 +15,17 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        List<Integer> ll = new ArrayList<>();
-        make(root,0,ll);
-        int sum =0;
-
-        for(int num : ll){
-            sum+=num;
-        }
-        return sum;
+        return sumN(root,0);
     }
-    public void make(TreeNode root,int sum,List<Integer> ll){
-        if(root== null){
-            return;
+    public int sumN(TreeNode root,int sum){
+        if(root == null){
+            return 0;
         }
-        sum +=root.val;
         if(root.left == null && root.right == null){
-            ll.add(sum);
-            return;
+            return sum = sum*10+ root.val;
         }
-        make(root.left,sum*10,ll);
-        make(root.right,sum*10,ll);
-        sum-=root.val;
+        int left = sumN(root.left,sum*10+root.val);
+        int right = sumN(root.right,sum*10+root.val);
+        return left+right; 
     }
 }
