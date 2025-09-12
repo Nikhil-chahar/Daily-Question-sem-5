@@ -5,25 +5,24 @@ class Solution {
         Arrays.fill(sol,1);
 
         for(int i=0;i<arr.length;i++){
-            // int val = arr[i];
             int ma=0;
             for(int j = i-1;j>=0;j--){
-
                 if(arr[i] > arr[j]){
                     ma = Math.max(ma,sol[j]);
                 }
             }
             sol[i]+=ma;
         } 
-        int max=1;
 
-        for(int i=0;i<arr.length;i++){
-            System.out.print(sol[i]+" ");
-            if(sol[i] > max){
-                max = sol[i];
-            }
-        }
-        return max;
+        // int max=1;
+        // for(int i=0;i<arr.length;i++){
+        //     System.out.print(sol[i]+" ");
+        //     if(sol[i] > max){
+        //         max = sol[i];
+        //     }
+        // }
+        // return max;
+        return Arrays.stream(sol).max().getAsInt();
 
 
 
