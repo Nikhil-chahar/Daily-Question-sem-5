@@ -1,18 +1,23 @@
 class Solution {
     public int rob(int[] nums) {
-        int n= nums.length;
+       int dp[] = new int[nums.length];
+       Arrays.fill(dp,-1);
+       return robb(nums,0,dp);
 
-        if(n<2){
-            return nums[0];
+    //    return 2;
+    }
+    public int robb(int nums[],int i,int dp[]){
+        if(i>=nums.length){
+            return 0;
+        }
+        if(dp[i] != -1){
+            return dp[i];
         }
 
-        int dp[] = new int[n];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0],nums[1]);
+        int rob = nums[i] + robb(nums,i+2,dp);
+        int n_rob = robb(nums,i+1,dp);
 
-        for(int i=2;i<n;i++){
-            dp[i] = Math.max(dp[i-1],nums[i]+dp[i-2]);
-        } 
-        return dp[nums.length-1];
+        return dp[i] = Math.max(rob,n_rob);
+
     }
 }
