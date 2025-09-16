@@ -1,12 +1,13 @@
 class Solution {
     public int numDistinct(String s, String t) {
         int dp[][] = new int[s.length()][t.length()];
-        for(int a[] : dp){
+        for(int a[]:dp){
             Arrays.fill(a,-1);
         }
-        return coin_change(s,t,0,0,dp);
+
+        return calc(s,t,0,0,dp);
     }
-    public int coin_change(String s, String t ,int i ,int j,int dp[][]){
+    public int calc(String s,String t,int i,int j,int dp[][]){
         if(j == t.length()){
             return 1;
         }
@@ -17,12 +18,12 @@ class Solution {
             return dp[i][j];
         }
 
-        int inc = 0, exc = 0;
-
+        int inc =0,exc=0;
         if(s.charAt(i) == t.charAt(j)){
-            inc = coin_change(s,t,i+1,j+1,dp);
+            inc = calc(s,t,i+1,j+1,dp);
         }
-        exc = coin_change(s, t, i+1, j,dp);
-        return dp[i][j] = inc +exc;
+        exc = calc(s,t,i+1,j,dp);
+
+        return dp[i][j] = inc+exc;
     }
 }
