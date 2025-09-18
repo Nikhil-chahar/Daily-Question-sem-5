@@ -1,31 +1,30 @@
 class Solution {
-    public int minFallingPathSum(int[][] matrix) {
-        int dp[][] =new int[matrix.length][matrix[0].length];
-        for(int a[] : dp){
-            Arrays.fill(a,-66666);
+    public int minFallingPathSum(int[][] grid) {
+        int dp[][]  = new int[grid.length][grid[0].length];
+        for(int a[]: dp){
+            Arrays.fill(a,-101);
         }
         int ans = Integer.MAX_VALUE;
-        for(int col=0;col<matrix[0].length;col++){
-            ans=Math.min(ans,Minimum_falling(matrix,0,col,dp));
+        for(int i=0;i<grid[0].length;i++){
+            ans = Math.min(ans,min(grid,0,i,dp));
         }
         return ans;
     }
-    public static int Minimum_falling(int[][] matrix, int cr,int cc,int dp[][]){
-        if(cc < 0 || cc >= matrix[0].length){
+    public int min(int grid[][],int r,int c,int dp[][]){
+        if(c <0 || c >= grid[0].length){
             return Integer.MAX_VALUE;
         }
-        if(cr == matrix.length-1){
-            return matrix[cr][cc];
+        if(r == grid.length-1){
+            return grid[r][c];
         }
-        if(dp[cr][cc] != -66666){
-            return dp[cr][cc];
+        if(dp[r][c] != -101){
+            return dp[r][c];
         }
 
-        int ld = Minimum_falling(matrix, cr+1, cc-1,dp);
-        int rd = Minimum_falling(matrix, cr+1, cc+1,dp);
-        int d = Minimum_falling(matrix, cr+1, cc,dp);
+        int dl = min(grid,r+1,c-1,dp);
+        int dr = min(grid,r+1,c+1,dp);
+        int d = min(grid,r+1,c,dp);
 
-        return dp[cr][cc] = Math.min(rd,Math.min(ld,d)) + matrix[cr][cc];
-
+        return dp[r][c] =  Math.min(d,Math.min(dl,dr)) + grid[r][c];
     }
 }
