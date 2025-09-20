@@ -1,13 +1,13 @@
 class Solution {
-    public int lengthOfLIS(int[] arr) {
-        return LIS(arr);
-    } 
-    public static int LIS(int arr[]){
+    public int lengthOfLIS(int[] nums) {
+        return LIS(nums);
+    }
+    public int LIS(int arr[]){
         int dp[] = new int[arr.length];
-        int len =1;
-        dp[0]= arr[0];
-        for(int i=1;i<dp.length;i++){
-            if(arr[i] > dp[len-1]){
+        int len=1;
+        dp[0] = arr[0];
+        for(int i=1;i<arr.length;i++){
+            if(dp[len-1] < arr[i]){
                 dp[len] = arr[i];
                 len++;
             }else{
@@ -16,17 +16,17 @@ class Solution {
             }
         }
         return len;
-
     }
-    public static int BinarySearch(int dp[] ,int si,int ei,int item) {
-        int idx = 0;
-        while(si <= ei){
+    public int BinarySearch(int dp[],int si,int ei,int item){
+        int idx=0;
+        while(si <=ei){
             int mid = (si+ei)/2;
-            if(dp[mid]>= item){
+            if(dp[mid] >= item){
                 idx = mid;
                 ei = mid-1;
-            }else{
-                si = mid +1;
+            }
+            else{
+                si = mid+1;
             }
         }
         return idx;
