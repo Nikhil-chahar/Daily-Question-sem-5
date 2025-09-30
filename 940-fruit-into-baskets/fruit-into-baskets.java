@@ -1,29 +1,18 @@
-public class Solution {
-    public int totalFruit(int[] fruits) {
-        int n = fruits.length;
-        int lastFruit = -1, secondLastFruit = -1;
-        int lastCount = 0, currMax = 0, max = 0;
+class Solution {
+  public int totalFruit(int[] tree) {
+    int ans = 0;
+    Map<Integer, Integer> count = new HashMap<>();
 
-        for (int i = 0; i < n; i++) {
-            int fruit = fruits[i];
-
-            if (fruit == lastFruit || fruit == secondLastFruit) {
-                currMax++;
-            } else {
-                currMax = lastCount + 1;
-            }
-
-            if (fruit == lastFruit) {
-                lastCount++;
-            } else {
-                lastCount = 1;
-                secondLastFruit = lastFruit;
-                lastFruit = fruit;
-            }
-
-            max = Math.max(max, currMax);
-        }
-
-        return max;
+    for (int l = 0, r = 0; r < tree.length; ++r) {
+      count.put(tree[r], count.getOrDefault(tree[r], 0) + 1);
+      while (count.size() > 2) {
+        count.put(tree[l], count.get(tree[l]) - 1);
+        count.remove(tree[l], 0);
+        ++l;
+      }
+      ans = Math.max(ans, r - l + 1);
     }
+
+    return ans;
+  }
 }
