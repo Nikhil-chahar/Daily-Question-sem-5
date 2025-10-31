@@ -28,13 +28,12 @@ class Solution {
             }
             head = head.next; 
         }
-        while(!st.isEmpty()){
-            Node last= st.pop();
-            while(last != null){
-                System.out.print(last.val + " ");
-                last = last.next;
-            }
-        }
+        // while(!st.isEmpty()){
+        //     Node last= st.pop();
+        //     while(last != null){
+        //         last = last.next;
+        //     }
+        // }
         return dummy;
     }
 }
