@@ -10,12 +10,18 @@
  */
 class Solution {
     public ListNode modifiedList(int[] nums, ListNode head) {
+        int max = -1;
+        for(int num : nums){
+            max = num>max?num:max;
+        }
+        boolean fre[] = new boolean[max+1];
+        for(int num : nums) fre[num] = true;
+
         ListNode dummy = new ListNode();
         ListNode temp = dummy;
-        Arrays.sort(nums);
 
         while(head != null){
-            if(!checked(head.val,nums)){
+            if(head.val >= fre.length || fre[head.val] == false){
                 dummy.next = head;
                 dummy = dummy.next;
             }
@@ -23,23 +29,6 @@ class Solution {
         }
         dummy.next = null;
         return temp.next;
-
     }
-    public boolean checked(int tar,int nums[]){
-        int lo = 0;
-        int hi = nums.length-1;
 
-        while(lo <= hi){
-            int  mid = lo+(hi-lo)/2;
-            if(nums[mid] == tar){
-                return true;
-            }
-            else if(nums[mid] > tar){
-                hi = mid-1;
-            }else{
-                lo = mid+1;
-            }
-        }
-        return false;
-    }
 }
