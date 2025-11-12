@@ -1,30 +1,30 @@
 class Solution {
-    public int minFallingPathSum(int[][] grid) {
-        int dp[][]  = new int[grid.length][grid[0].length];
-        for(int a[]: dp){
+    public int minFallingPathSum(int[][] matrix) {
+        int dp[][] = new int[matrix.length][matrix[0].length];
+        for(int a[] : dp){
             Arrays.fill(a,-101);
         }
-        int ans = Integer.MAX_VALUE;
-        for(int i=0;i<grid[0].length;i++){
-            ans = Math.min(ans,min(grid,0,i,dp));
+        int mn = Integer.MAX_VALUE;
+        for(int i=0;i<matrix[0].length;i++){
+            mn = Math.min(mn,minimumSum(matrix,0,i,dp));
         }
-        return ans;
+        return mn;
     }
-    public int min(int grid[][],int r,int c,int dp[][]){
-        if(c <0 || c >= grid[0].length){
+    public static int minimumSum(int[][] grid,int cr,int cc,int[][] dp){
+        if(cc>=grid[0].length || cc<0){
             return Integer.MAX_VALUE;
         }
-        if(r == grid.length-1){
-            return grid[r][c];
+        if(cr==grid.length-1){
+            return grid[cr][cc];   
         }
-        if(dp[r][c] != -101){
-            return dp[r][c];
+        if(dp[cr][cc] != -101){
+            return dp[cr][cc];
         }
-
-        int dl = min(grid,r+1,c-1,dp);
-        int dr = min(grid,r+1,c+1,dp);
-        int d = min(grid,r+1,c,dp);
-
-        return dp[r][c] =  Math.min(d,Math.min(dl,dr)) + grid[r][c];
+        int l=minimumSum(grid,cr+1,cc-1,dp);
+        int d=minimumSum(grid,cr+1,cc,dp);
+        int r=minimumSum(grid,cr+1,cc+1,dp);
+        
+        return dp[cr][cc]=Math.min(d,Math.min(l,r))+grid[cr][cc];
     }
+    
 }
