@@ -7,6 +7,7 @@ class Solution {
             return -1;
         }
         if(n==0) return 1;
+
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{0,0});
         int dist=1;
