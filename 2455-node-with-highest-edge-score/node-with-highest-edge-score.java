@@ -1,21 +1,23 @@
 class Solution {
     public int edgeScore(int[] edges) {
-        HashMap<Integer, Long> map = new HashMap<>();
+        int n = edges.length;
+        long arr[] = new long[n];
 
-        for (int i = 0; i < edges.length; i++) {
-            map.put(edges[i], map.getOrDefault(edges[i], 0L) + i);
+        for(int i=0;i<n;i++){
+            arr[edges[i]] += i;
         }
 
         long max = -1;
         int ind = 0;
 
-        for (int key : map.keySet()) {
-            long val = map.get(key);
-            if (val > max || (val == max && key < ind)) {
-                max = val;
-                ind = key;
+        for(int i=0;i<n;i++){
+            if(max < arr[i]){
+                max = arr[i];
+                ind = i;
             }
         }
         return ind;
+
+        
     }
 }
