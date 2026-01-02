@@ -1,42 +1,56 @@
 class Solution {
-    public boolean isBipartite(int[][] graph) {
+    class BipartitePair{
+        int vtx;
+        int dis;
+        public BipartitePair(int vtx,int dis){
+            this.dis = dis;
+            this.vtx = vtx;
+        }
+    }
+    public boolean isBipartite(int[][] gra) {
+
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        for(int i=0;i<gra.length;i++){
+            graph.add(i,new ArrayList<>());
+        }
+        int ind=0;
+        for(int arr[] : gra){
+            for(int i=0;i<arr.length;i++){
+                graph.get(ind).add(arr[i]);
+            }
+            ind++;
+        }
+        // System.out.print(graph);
+
         Queue<BipartitePair> q = new LinkedList<>();
-        HashMap<Integer,Integer> visited = new HashMap<>();
-        for(int i=0;i<graph.length;i++){  //vtx
-            if(visited.containsKey(i)) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int i=0;i<gra.length;i++){
+            if(map.containsKey(i)){
                 continue;
-            }    
+            }
             q.add(new BipartitePair(i,0));
             while(!q.isEmpty()){
-                // 1. remove
-                BipartitePair rp = q.poll();
-                // 2. ignore if already visited
-                if(visited.containsKey(rp.vtx)){
-                    if(visited.get(rp.vtx) != rp.dis){
+                // remove
+                BipartitePair bp = q.poll();
+                // ignore
+                if(map.containsKey(bp.vtx)){
+                    if(map.get(bp.vtx) != bp.dis){
                         return false;
                     }
                     continue;
                 }
-                // 3. marked visited
-                visited.put(rp.vtx,rp.dis);
-                // 4. self work
-                // 5. add nbrs
-                for(int nbrs : graph[rp.vtx]){
-                    if(!visited.containsKey(nbrs)){
-                        q.add(new BipartitePair(nbrs, rp.dis+1));
+                // visit
+                map.put(bp.vtx,bp.dis);
+                // work
+                // add nbrs
+                for(int nbrs : graph.get(bp.vtx)){
+                    if(!map.containsKey(nbrs)){
+                        q.add(new BipartitePair(nbrs,bp.dis+1));
                     }
                 }
             }
         }
         return true;
-    }
-    class BipartitePair{
-        int vtx;
-        int dis;
-        public BipartitePair(int vtx,int dis){
-            this.vtx = vtx;
-            this.dis = dis;
-
-        }
     }
 }
