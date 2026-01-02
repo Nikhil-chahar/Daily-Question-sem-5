@@ -9,19 +9,6 @@ class Solution {
     }
     public boolean isBipartite(int[][] gra) {
 
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        for(int i=0;i<gra.length;i++){
-            graph.add(i,new ArrayList<>());
-        }
-        int ind=0;
-        for(int arr[] : gra){
-            for(int i=0;i<arr.length;i++){
-                graph.get(ind).add(arr[i]);
-            }
-            ind++;
-        }
-        // System.out.print(graph);
-
         Queue<BipartitePair> q = new LinkedList<>();
         HashMap<Integer,Integer> map = new HashMap<>();
 
@@ -44,7 +31,7 @@ class Solution {
                 map.put(bp.vtx,bp.dis);
                 // work
                 // add nbrs
-                for(int nbrs : graph.get(bp.vtx)){
+                for(int nbrs : gra[bp.vtx]){
                     if(!map.containsKey(nbrs)){
                         q.add(new BipartitePair(nbrs,bp.dis+1));
                     }
