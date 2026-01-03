@@ -2,6 +2,7 @@ class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         Queue<Pair> q = new LinkedList<>();
         HashSet<String> dict = new HashSet<>(wordList);
+        if(!dict.contains(endWord)) return 0;
         HashSet<String> visited = new HashSet<>();
         q.add(new Pair(beginWord,1));
         int ans = Integer.MAX_VALUE;
