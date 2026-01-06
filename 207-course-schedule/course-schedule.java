@@ -1,47 +1,41 @@
 class Solution {
-    public HashMap<Integer,HashMap<Integer,Integer>> map = new HashMap<>();
-
-    public boolean canFinish(int num, int[][] pre) {
-        for(int i=0;i<num;i++){
-            map.put(i,new HashMap<>());
+    HashMap<Integer,List<Integer>> map = new HashMap<>();
+    public boolean canFinish(int n, int[][] pr) {
+        for(int i=0;i<n;i++){
+            map.put(i,new ArrayList<>());
         }
-
-        for(int i=0;i<pre.length;i++){
-            int v2 = pre[i][0];
-            int v1 = pre[i][1];
-            map.get(v1).put(v2,0);
-
+        for(int ar[] : pr){
+            int v1 = ar[0];
+            int v2 = ar[1];
+            map.get(v2).add(v1);
         }
-        return isfinish();
+        Queue<Integer> q = new LinkedList<>();
+        int in[] = indegree(n);
+
+        for(int i=0;i<n;i++){
+            if(in[i] == 0){
+                q.add(i);
+            }
+        }
+        int c=0;
+
+        while(!q.isEmpty()){
+            int rv = q.poll();
+            c++;
+            for(int nbrs : map.get(rv)){
+                in[nbrs]--;
+                if(in[nbrs] == 0){
+                    q.add(nbrs);
+                }
+            }
+        }
+        return c == n;
     }
-    public boolean isfinish() {
-		int[] in = indegree();
-		Queue<Integer> q = new LinkedList<>();
-		for (int i = 0; i < in.length; i++) {
-			if (in[i] == 0) {
-				q.add(i);
-			}
-		}
-		int c = 0;
-		while (!q.isEmpty()) {
-			int r = q.poll();
-			c++;
-			for (int nbrs : map.get(r).keySet()) {
-				in[nbrs]--;
-				if (in[nbrs] == 0) {
-					q.add(nbrs);
-				}
-			}
-		}
-		return c == map.size();
-
-	}
-
-    public int[] indegree(){
-        int in[] = new int[map.size()];
+    public int[] indegree(int n){
+        int in[] = new int[n];
 
         for(int key : map.keySet()){
-            for(int nbrs : map.get(key).keySet()){
+            for(int nbrs : map.get(key)){
                 in[nbrs]++;
             }
         }
