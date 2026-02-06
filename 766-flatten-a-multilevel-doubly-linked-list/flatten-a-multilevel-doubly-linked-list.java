@@ -11,29 +11,25 @@ class Node {
 class Solution {
     public Node flatten(Node head) {
         Node dummy = head;
-        Stack<Node> st = new Stack<>();
+        Stack<Node> st =  new Stack<>();
+
         while(head != null){
             if(head.child != null){
-                if(head.next!=null){
-                    st.add(head.next);
+                if(head.next != null){
+                    st.push(head.next);
                 }
                 head.next = head.child;
-                head.child.prev=head;
-                head.child=null;
+                head.child.prev = head;
+                head.child = null;
             }
-            else if(head.next==null && !st.isEmpty()){
-                Node nn=st.pop();
-                head.next=nn;
-                nn.prev=head;
+            else if(head.next == null  && !st.isEmpty()){
+                Node nn = st.pop();
+                head.next = nn;
+                nn.prev = head;
             }
-            head = head.next; 
+            head = head.next;
+
         }
-        // while(!st.isEmpty()){
-        //     Node last= st.pop();
-        //     while(last != null){
-        //         last = last.next;
-        //     }
-        // }
         return dummy;
     }
 }
