@@ -1,27 +1,31 @@
 class Solution {
     public int longestBalanced(String s) {
+        int mx=0;
         int n = s.length();
-        int mx =0;
+
         for(int i=0;i<n;i++){
-            HashMap<Character,Integer> map = new HashMap<>();
+            int freq[] = new int[26];
             for(int j=i;j<n;j++){
-                char ch = s.charAt(j);
-                map.put(ch,map.getOrDefault(ch,0)+1);
-                if(check(map,ch)){
+                freq[s.charAt(j)-'a']++;
+                if(balance(freq)){
                     mx = Math.max(mx,j-i+1);
                 }
             }
         }
         return mx;
     }
-    public boolean check(HashMap<Character,Integer> map,char ch){
-        int v = map.get(ch);
+    public boolean balance(int freq[]){
+        int val =0;
+        // int cn=0;
 
-        for(char key : map.keySet()){
-            if(map.get(key) != v){
-                return false;
+        for(int v : freq){
+            if(v > 0){
+                if(val == 0) val = v;
+                else if(val != v) return false;
+                // cn++;
             }
         }
+        // return cn >0;
         return true;
     }
 }
